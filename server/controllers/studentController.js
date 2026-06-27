@@ -53,7 +53,7 @@ const addStudent = (req, res) => {
 
 // PUT /students/:id
 const updateStudent = (req, res) => {
-    
+
     const id = req.params.id;
 
     Student.updateStudent(id, req.body, (err, result) => {
@@ -74,9 +74,35 @@ const updateStudent = (req, res) => {
     });
 };
 
+
+// DELETE /students/:id
+const deleteStudent = (req, res) => {
+
+    const id = req.params.id;
+
+    Student.deleteStudent(id, (err, result) => {
+        if(err) {
+            return res.status(500).json(err);
+        }
+
+        // to check if the student exists
+        if(result.affectedRows === 0) {
+            return res.status(404).json({
+                message: "Student not found"
+            });
+        }
+
+        res.json({
+            message: "Student deleted successfully"
+        });
+    });
+};
+
+
 module.exports = {
     getStudents,
     getStudentById,
     addStudent,
-    updateStudent
+    updateStudent,
+    deleteStudent
 };

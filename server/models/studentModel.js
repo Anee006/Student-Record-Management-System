@@ -63,9 +63,19 @@ const updateStudent = (id, student, callback) => {
         );
 };
 
+
+// DELETE /students/:id (Delete a student)
+const deleteStudent = (id, callback) => {
+    const sql = "DELETE FROM students WHERE student_id=?";
+
+    db.query(sql, [id], callback);
+};
+
+
 module.exports = {
     getAllStudents,
     getStudentById,
     addStudent,
-    updateStudent
+    updateStudent,
+    deleteStudent
 };
