@@ -1,2 +1,20 @@
 # Student-Record-Management-System
-This is a practice project to understand concepts of React
+
+## Tech Stack
+
+### Frontend
+- React + Vite
+- Axios
+- React Router 
+
+### Backend
+- Node.js
+- Express.js
+
+### Database
+- MySQL
+
+### Tools
+- VS Code
+- MySQL Workbench
+
