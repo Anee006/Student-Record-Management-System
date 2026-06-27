@@ -51,8 +51,32 @@ const addStudent = (req, res) => {
 };
 
 
+// PUT /students/:id
+const updateStudent = (req, res) => {
+    
+    const id = req.params.id;
+
+    Student.updateStudent(id, req.body, (err, result) => {
+        if(err) {
+            return res.status(500).json(err);
+        }
+
+        // if someone tries to update a student that doesn't exist
+        if(result.affectedRows === 0) {
+            return res.status(404).json({
+                message: "Student not found"
+            });
+        }
+
+        res.json({
+            message: "Student updated successfully"
+        });
+    });
+};
+
 module.exports = {
     getStudents,
     getStudentById,
-    addStudent
+    addStudent,
+    updateStudent
 };

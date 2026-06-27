@@ -10,4 +10,6 @@ router.get("/students/:id", studentController.getStudentById);
 
 router.post("/students", studentController.addStudent);
 
+router.put("/students/:id", studentController.updateStudent);
+
 module.exports = router;

@@ -38,8 +38,34 @@ const addStudent = (student, callback) => {
 };
 
 
+// PUT /students/:id (Update a student)
+const updateStudent = (id, student, callback) => {
+    const sql = `
+        UPDATE students
+        SET
+            name=?,
+            age=?,
+            department=?,
+            semester=?,
+            email=?
+        WHERE student_id=?`;
+
+        db.query(sql, 
+            [
+                student.name,
+                student.age,
+                student.department,
+                student.semester,
+                student.email,
+                id
+            ],
+            callback
+        );
+};
+
 module.exports = {
     getAllStudents,
     getStudentById,
-    addStudent
+    addStudent,
+    updateStudent
 };
