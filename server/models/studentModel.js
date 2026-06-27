@@ -1,11 +1,13 @@
 const db = require("../config/db");
 
+
 // GET /students (Get all students)
 const getAllStudents = (callback) => {
     const sql = "SELECT * FROM students";
     
     db.query(sql, callback);
 };
+
 
 // GET /students/:id (Get a single student)
 const getStudentById = (id, callback) => {
@@ -14,7 +16,30 @@ const getStudentById = (id, callback) => {
     db.query(sql, [id], callback);
 };
 
+
+// POST /students (Add a student)
+const addStudent = (student, callback) => {
+
+    const sql = `
+        INSERT INTO students
+        (name, age, department, semester, email)
+        VALUES (?, ?, ?, ?, ?)`;
+
+    db.query(sql, 
+        [
+            student.name,
+            student.age,
+            student.department,
+            student.semester,
+            student.email
+        ],
+        callback
+    );
+};
+
+
 module.exports = {
     getAllStudents,
-    getStudentById
+    getStudentById,
+    addStudent
 };
