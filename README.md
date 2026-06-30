@@ -39,8 +39,50 @@ Tools
 
 ## Folder Structure
 
-client/
-server/
+```
+Student-Record-Management-System/
+│
+├── client/                         # React Frontend
+│   ├── src/
+│   │   ├── components/             # Reusable React components
+│   │   │   ├── SearchBar.jsx
+│   │   │   ├── StudentForm.jsx
+│   │   │   ├── StudentList.jsx
+│   │   │   └── StudentRow.jsx
+│   │   │
+│   │   ├── services/               # Axios API configuration
+│   │   │   ├── api.js
+│   │   │   └── studentService.js
+│   │   │
+│   │   ├── App.jsx                 # Main application
+│   │   ├── App.css                 # Styling
+│   │   ├── index.css
+│   │   └── main.jsx
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+├── server/                         # Express Backend
+│   ├── config/
+│   │   └── db.js                   # MySQL connection
+│   │
+│   ├── controllers/
+│   │   └── studentController.js    # Request handlers
+│   │
+│   ├── models/
+│   │   └── studentModel.js         # Database queries
+│   │
+│   ├── routes/
+│   │   └── studentRoutes.js        # API routes
+│   │
+│   ├── .env
+│   └── server.js                   # Express server
+│
+├── database/
+│   └── student_db.sql              # Database schema
+│
+└── README.md
+```
 
 ---
 
