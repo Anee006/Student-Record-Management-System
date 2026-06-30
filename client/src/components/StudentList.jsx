@@ -1,33 +1,12 @@
 import StudentRow from "./StudentRow";
 
-function StudentList() {
-
-    const students = [
-        {
-            student_id: 1,
-            name: "Vanya",
-            age: 20,
-            department: "CSE",
-            semester: 4,
-            email: "vanya@gmail.com"
-        },
-        {
-            student_id: 2,
-            name: "Daksh",
-            age: 21,
-            department: "IT",
-            semester: 6,
-            email: "daksh@gmail.com"
-        }
-    ];
-
+function StudentList({ students }) {
     return (
         <div>
-
             <h2>Student List</h2>
 
             <table>
-
+                
                 <thead>
                     <tr>
                         <th>ID</th>
