@@ -11,33 +11,82 @@ function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
         email: ""
     });
 
+    const [errors, setErrors] = useState({});
+
+    const [message, setMessage] = useState("");
+
+    const [messageType, setMessageType] = useState("");
+
     const handleChange = (e) => {
+
         setFormData({
             ...formData,
 
             [e.target.name]: e.target.value
         });
+
+        setErrors({
+            ...errors,
+            [e.target.name]: ""
+        });
+    };
+
+    const validateForm = () => {
+
+        let newErrors = {};
+
+        if(formData.name.trim() === "") {
+            newErrors.name = "Name is required";
+        }
+
+        if(formData.age <= 0) {
+            newErrors.age = "Age must be greater than 0";
+        }
+
+        if(formData.semester < 1 || formData.semester > 8) {
+            newErrors.semester = "Semester must be between 1 and 8";
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if(!emailRegex.test(formData.email)) {
+            newErrors.email = "Invalid email address";
+        }
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = async (e) => {
 
         e.preventDefault();
 
+        if(!validateForm()) {
+            return;
+        }
+
         try {
 
             if (editingStudent) {
+
                 await API.put(
                     `/students/${editingStudent.student_id}`,
-
                     formData
                 );
 
                 setEditingStudent(null);
+
+                setMessage("Student updated successfully!");
             }
 
             else {
                 await API.post("/students", formData);
+
+                setMessage("Student added successfully!");
             }
+
+            setMessageType("success");
 
             fetchStudents();
 
@@ -48,10 +97,18 @@ function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
                 semester: "",
                 email: ""
             });
+
+            setErrors({});
         }
 
         catch (err) {
-            console.log(err);
+
+            setMessage(
+                err.response?.data?.message ||
+                "Something went wrong. Please try again."
+            );
+
+            setMessageType("error");
         }
     };
 
@@ -73,6 +130,12 @@ function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
         <div>
             <h2>{editingStudent ? "Update Student" : "Add Student"}</h2>
 
+            {message && (
+                <div className={messageType === "success" ? "success-message" : "error-message"}>
+                    {message}
+                </div> 
+            )}
+
             <form onSubmit={handleSubmit}>
 
                 <input
@@ -83,6 +146,10 @@ function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
                     onChange={handleChange}
                 />
 
+                {errors.name && (
+                    <p className="error">{errors.name}</p>
+                )}
+
                 <input
                     type="number"
                     name="age"
@@ -90,6 +157,10 @@ function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
                     value={formData.age}
                     onChange={handleChange}
                 />
+
+                {errors.age && (
+                    <p className="error">{errors.age}</p>
+                )}
 
                 <input
                     type="text"
@@ -107,6 +178,10 @@ function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
                     onChange={handleChange}
                 />
 
+                {errors.semester && (
+                    <p className="error">{errors.semester}</p>
+                )}
+
                 <input
                     type="email"
                     name="email"
@@ -115,10 +190,37 @@ function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
                     onChange={handleChange}
                 />
 
+                {errors.email && (
+                    <p className="error">{errors.email}</p>
+                )}
+
                 <button type="submit">
                     {editingStudent ? "Update Student" : "Add Student"}
                 </button>
 
+                {editingStudent && (
+                    <button
+                        type="button"
+                        className="cancel-btn"
+                        onClick={() => {
+
+                            setEditingStudent(null);
+
+                            setFormData({
+                                name: "",
+                                age: "",
+                                department: "",
+                                semester: "",
+                                email: ""
+                            });
+
+                            setErrors({});
+                        }}
+                    >
+                        Cancel
+                    </button>
+                )}
+                
             </form>
         </div>
     );

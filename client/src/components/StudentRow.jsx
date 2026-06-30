@@ -14,9 +14,19 @@ function StudentRow({ student, deleteStudent, setEditingStudent }) {
             <td>{student.email}</td>
 
             <td>
-                <button onClick={() => setEditingStudent(student)}>Edit</button>
+                <button 
+                    className="edit-btn"
+                    onClick={() => setEditingStudent(student)}
+                >
+                    Edit
+                </button>
 
-                <button onClick={ () => deleteStudent(student.student_id) }>Delete</button>
+                <button
+                    className="delete-btn"
+                    onClick={() => deleteStudent(student.student_id)}
+                >
+                    Delete
+                </button>
             </td>
         </tr>
     );

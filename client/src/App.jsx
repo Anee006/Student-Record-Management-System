@@ -63,10 +63,12 @@ function App() {
         setEditingStudent={setEditingStudent}
       />
 
-      <SearchBar
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
+      <div className="search-section">
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      </div>
 
       <StudentList
         students={filteredStudents}
