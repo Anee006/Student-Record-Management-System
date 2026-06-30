@@ -11,6 +11,8 @@ function App() {
 
   const [editingStudent, setEditingStudent] = useState(null);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   const fetchStudents = async () => {
 
     try {
@@ -19,7 +21,7 @@ function App() {
       setStudents(response.data);
     }
 
-    catch(err) {
+    catch (err) {
       console.log(err);
     }
   };
@@ -32,7 +34,7 @@ function App() {
       fetchStudents();
     }
 
-    catch(err) {
+    catch (err) {
       console.log(err);
     }
   };
@@ -41,21 +43,33 @@ function App() {
     fetchStudents();
   }, []);
 
+  const filteredStudents = students.filter((student) =>
+
+    student.name
+
+    .toLowerCase()
+
+    .includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container">
 
       <h1>Student Record Management System</h1>
 
-      <StudentForm 
-          fetchStudents={fetchStudents}
-          editingStudent={editingStudent}
-          setEditingStudent={setEditingStudent}
+      <StudentForm
+        fetchStudents={fetchStudents}
+        editingStudent={editingStudent}
+        setEditingStudent={setEditingStudent}
       />
 
-      <SearchBar />
+      <SearchBar
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
 
       <StudentList
-        students={students}
+        students={filteredStudents}
         deleteStudent={deleteStudent}
         setEditingStudent={setEditingStudent}
       />

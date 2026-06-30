@@ -1,10 +1,13 @@
-function SearchBar() {
+function SearchBar({ searchTerm, setSearchTerm }) {
+
   return (
-    <div>
-      <h2>Search Student</h2>
-      
-      <input type="text" placeholder="Search by Name" />
-    </div>
+
+    <input
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      placeholder="Search by name"
+    />
+
   );
 }
 
