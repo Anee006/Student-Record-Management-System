@@ -52,7 +52,6 @@ Student-Record-Management-System/
 │   │   │
 │   │   ├── services/               # Axios API configuration
 │   │   │   ├── api.js
-│   │   │   └── studentService.js
 │   │   │
 │   │   ├── App.jsx                 # Main application
 │   │   ├── App.css                 # Styling
