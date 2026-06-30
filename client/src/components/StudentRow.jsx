@@ -1,4 +1,4 @@
-function StudentRow({ student }) {
+function StudentRow({ student, deleteStudent, setEditingStudent }) {
     return (
         <tr>
             <td>{student.student_id}</td>
@@ -14,8 +14,9 @@ function StudentRow({ student }) {
             <td>{student.email}</td>
 
             <td>
-                <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={() => setEditingStudent(student)}>Edit</button>
+
+                <button onClick={ () => deleteStudent(student.student_id) }>Delete</button>
             </td>
         </tr>
     );

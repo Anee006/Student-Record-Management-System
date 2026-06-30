@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../services/api";
 
-function StudentForm({ fetchStudents }) {
+function StudentForm({ fetchStudents, editingStudent, setEditingStudent }) {
 
     const [formData, setFormData] = useState({
         name: "",
@@ -24,7 +24,20 @@ function StudentForm({ fetchStudents }) {
         e.preventDefault();
 
         try {
-            await API.post("/students", formData);
+
+            if (editingStudent) {
+                await API.put(
+                    `/students/${editingStudent.student_id}`,
+
+                    formData
+                );
+
+                setEditingStudent(null);
+            }
+
+            else {
+                await API.post("/students", formData);
+            }
 
             fetchStudents();
 
@@ -42,9 +55,23 @@ function StudentForm({ fetchStudents }) {
         }
     };
 
+    useEffect(() => {
+
+        if (editingStudent) {
+            setFormData({
+                name: editingStudent.name,
+                age: editingStudent.age,
+                department: editingStudent.department,
+                semester: editingStudent.semester,
+                email: editingStudent.email
+            });
+        }
+
+    }, [editingStudent]);
+
     return (
         <div>
-            <h2>Add Student</h2>
+            <h2>{editingStudent ? "Update Student" : "Add Student"}</h2>
 
             <form onSubmit={handleSubmit}>
 
@@ -88,7 +115,9 @@ function StudentForm({ fetchStudents }) {
                     onChange={handleChange}
                 />
 
-                <button type="submit">Add Student</button>
+                <button type="submit">
+                    {editingStudent ? "Update Student" : "Add Student"}
+                </button>
 
             </form>
         </div>

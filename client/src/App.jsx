@@ -7,38 +7,61 @@ import "./App.css";
 
 function App() {
 
-    const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([]);
 
-    const fetchStudents = async () => {
+  const [editingStudent, setEditingStudent] = useState(null);
 
-        try {
-            const response = await API.get("/students");
+  const fetchStudents = async () => {
 
-            setStudents(response.data);
-        }
+    try {
+      const response = await API.get("/students");
 
-        catch(err){
-            console.log(err);
-        }
-    };
+      setStudents(response.data);
+    }
 
-    useEffect(() => {
-        fetchStudents();
-    }, []);
+    catch(err) {
+      console.log(err);
+    }
+  };
 
-    return (
-        <div className="container">
+  const deleteStudent = async (id) => {
 
-            <h1>Student Record Management System</h1>
+    try {
+      await API.delete(`/students/${id}`);
 
-            <StudentForm fetchStudents={fetchStudents} />
+      fetchStudents();
+    }
 
-            <SearchBar />
+    catch(err) {
+      console.log(err);
+    }
+  };
 
-            <StudentList students={students}/>
+  useEffect(() => {
+    fetchStudents();
+  }, []);
 
-        </div>
-    );
+  return (
+    <div className="container">
+
+      <h1>Student Record Management System</h1>
+
+      <StudentForm 
+          fetchStudents={fetchStudents}
+          editingStudent={editingStudent}
+          setEditingStudent={setEditingStudent}
+      />
+
+      <SearchBar />
+
+      <StudentList
+        students={students}
+        deleteStudent={deleteStudent}
+        setEditingStudent={setEditingStudent}
+      />
+
+    </div>
+  );
 }
 
 export default App;
