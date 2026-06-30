@@ -16,6 +16,8 @@ A full-stack CRUD application for managing student records using React, Node.js,
 - Form Validation
 - Responsive UI
 
+---
+
 ## Tech Stack
 
 Frontend
