@@ -124,11 +124,10 @@ DELETE /students/:id
 
 ## Screenshots
 
-![alt text]({B60C354B-5B7E-40BF-B9A6-5643B189A3C7}.png)
+![alt text](add_student.png)
 
-![alt text]({252D7A4C-9E42-4156-A5B7-737946716582}.png)
+![alt text](student_list.png)
 
----
 
 
 
