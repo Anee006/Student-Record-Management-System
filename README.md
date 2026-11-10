@@ -76,12 +76,17 @@ Student-Record-Management-System/
 │   ├── routes/
 │   │   └── studentRoutes.js        # API routes
 │   │
-│   ├── .env
+│   ├── .env.example
 │   └── server.js                   # Express server
 │
 ├── database/
 │   └── student_db.sql              # Database schema
 │
+├── images
+|   └── add_student.png
+|   └── student_list.png
+|
+├── .gitignore
 └── README.md
 ```
 
@@ -124,9 +129,9 @@ DELETE /students/:id
 
 ## Screenshots
 
-![alt text](add_student.png)
+![alt text](images/add_student.png)
 
-![alt text](student_list.png)
+![alt text](images/student_list.png)
 
 
 
